@@ -1,9 +1,11 @@
 #include "DynamicObject.h"
 
-DynamicObject::DynamicObject() {
-    vx = 0.0;
-    vy = 0.0;
+DynamicObject::DynamicObject() :
+	m_vx(0),
+	m_vy(0)
+{
 }
 
-DynamicObject::~DynamicObject() {
+DynamicObject::~DynamicObject()
+{
 }

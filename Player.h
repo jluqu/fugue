@@ -3,7 +3,8 @@
 
 #include "DynamicObject.h"
 
-class Player : public DynamicObject {
+class Player : public DynamicObject
+{
     Player();
     virtual ~Player();
     virtual void draw();

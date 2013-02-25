@@ -3,15 +3,16 @@
 
 #include "LevelObject.h"
 
-class DynamicObject : public LevelObject {
+class DynamicObject : public LevelObject
+{
     public:
         DynamicObject();
         virtual ~DynamicObject();
         virtual void draw() = 0;
         
     private:
-        float vx;
-        float vy;
+        float m_vx;
+        float m_vy;
 };
 
 #endif

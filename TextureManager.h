@@ -5,7 +5,8 @@
 #include <GL/gl.h>
 #include <SDL/SDL_image.h>
 
-class TextureManager {
+class TextureManager
+{
     public:
         static TextureManager* getInstance();
         
@@ -23,7 +24,7 @@ class TextureManager {
         TextureManager();
         ~TextureManager();
         static TextureManager* m_pInstance;
-        std::map<const char*, GLuint> idMap;
+        std::map<const char*, GLuint> m_idMap;
 };
 
 #endif

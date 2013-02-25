@@ -1,33 +1,37 @@
 #include "LevelObject.h"
 
 LevelObject::LevelObject() :
-    x(0),
-    y(0),
-    w(1),
-    h(1)
+    m_x(0),
+    m_y(0),
+    m_w(1),
+    m_h(1)
 {
 }
 
-LevelObject::LevelObject(float x_in, float y_in, float w_in, float h_in) :
-    x(x_in),
-    y(y_in),
-    w(w_in),
-    h(h_in)
+LevelObject::LevelObject(float x, float y, float w, float h) :
+    m_x(x),
+    m_y(y),
+    m_w(w),
+    m_h(h)
 {
 }
 
-LevelObject::~LevelObject() {
+LevelObject::~LevelObject()
+{
 }
 
-void LevelObject::draw() {
+void LevelObject::draw()
+{
 }
 
-void LevelObject::setPosition(float x_in, float y_in) {
-    x = x_in;
-    y = y_in;
+void LevelObject::setPosition(float x, float y)
+{
+    m_x = x;
+    m_y = y;
 }
 
-void LevelObject::setSize(float w_in, float h_in) {
-    w = w_in;
-    h = h_in;
+void LevelObject::setSize(float w, float h)
+{
+    m_w = w;
+    m_h = h;
 }

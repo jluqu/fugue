@@ -6,22 +6,24 @@
 #include <GL/glu.h>
 #include "Level.h"
 
-class App {
+class App
+{
     private:
-        bool Running;
-        SDL_Surface* Surf_Display;
-        Level* level;
+        bool m_running;
+        SDL_Surface* m_pSurfDisplay;
+        Level* m_pLevel;
+        float m_targetFps;
 
     public:
         App();
-        int OnExecute();
+        int onExecute();
 
     public:
-        bool OnInit();
-        void OnEvent(SDL_Event* Event);
-        void OnLoop();
-        void OnRender();
-        void OnCleanup();
+        bool onInit();
+        void onEvent(SDL_Event* event);
+        void onLoop();
+        void onRender();
+        void onCleanup();
 };
 
 #endif

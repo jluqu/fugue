@@ -1,7 +1,8 @@
 #ifndef _LEVELMAP_H_
 #define _LEVELMAP_H_
 
-class LevelMap {
+class LevelMap
+{
     public:
         LevelMap();
         

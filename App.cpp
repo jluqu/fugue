@@ -3,32 +3,78 @@
 #define SCR_WIDTH 1024
 #define SCR_HEIGHT 786
 
+#include <unistd.h>
+#include <time.h>
 #include "Level.h"
 #include "TextureManager.h"
 
-App::App() {
-    Surf_Display = NULL;
 
-    Running = true;
-    
-
+App::App() :
+    m_running(true),
+    m_pSurfDisplay(NULL),
+    m_pLevel(NULL),
+    m_targetFps(60)
+{
 }
 
-void App::OnCleanup() {
-    SDL_FreeSurface(Surf_Display);
+void App::onCleanup()
+{
+    SDL_FreeSurface(m_pSurfDisplay);
     SDL_Quit();
     TextureManager::getInstance()->cleanUp();
-    delete level;
+    delete m_pLevel;
 }
 
-void App::OnEvent(SDL_Event* Event) {
-    if(Event->type == SDL_QUIT) {
-        Running = false;
+void App::onEvent(SDL_Event* event)
+{
+    switch (event->type)
+    {
+        case SDL_QUIT:
+            m_running = false;
+            break;
+            
+        case SDL_KEYDOWN:
+            printf("A key was pressed!\n");
+            switch (event->key.keysym.sym)
+            {
+                case SDLK_LEFT:
+                    break;
+                case SDLK_RIGHT:
+                    break;
+                case SDLK_UP:
+                    break;
+                case SDLK_DOWN:
+                    break;
+                default:
+                    break;
+            }
+            break;
+
+        case SDL_KEYUP:
+            switch (event->key.keysym.sym)
+            {
+                case SDLK_LEFT:
+                    break;
+                case SDLK_RIGHT:
+                    break;
+                case SDLK_UP:
+                    break;
+                case SDLK_DOWN:
+                    break;
+                default:
+                    break;
+            }
+            break;
+
+        default:
+            break;
     }
 }
 
-bool App::OnInit() {
-    if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+bool App::onInit()
+{
+    if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
+    {
         return false;
     }
 
@@ -48,7 +94,8 @@ bool App::OnInit() {
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS,  1);
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,  2);
 
-    if((Surf_Display = SDL_SetVideoMode(SCR_WIDTH, SCR_HEIGHT, 32, SDL_HWSURFACE | SDL_GL_DOUBLEBUFFER | SDL_OPENGL)) == NULL) {
+    if((m_pSurfDisplay = SDL_SetVideoMode(SCR_WIDTH, SCR_HEIGHT, 32, SDL_HWSURFACE | SDL_GL_DOUBLEBUFFER | SDL_OPENGL)) == NULL)
+    {
         return false;
     }
 
@@ -68,50 +115,70 @@ bool App::OnInit() {
     glLoadIdentity();
     glEnable(GL_TEXTURE_2D);
     
-	TextureManager::getInstance()->addPngTexture("test.png", "test");
+    TextureManager::getInstance()->addPngTexture("test.png", "test");
     TextureManager::getInstance()->addPngTexture("test2.png", "test2");
     
-    level = new Level();
+    m_pLevel = new Level();
 
     return true;
 }
 
-void App::OnLoop() {
+void App::onLoop()
+{
 }
 
-int App::OnExecute() {
-    if(OnInit() == false) {
+int App::onExecute()
+{
+    if (onInit() == false)
+    {
         return -1;
     }
 
-    SDL_Event Event;
+    SDL_Event event;
 
-    while(Running) {
-        while(SDL_PollEvent(&Event)) {
-            OnEvent(&Event);
+    //clock_t start, end, elapsed, remaining;
+    timespec start, end;
+    double elapsed;
+    long waitusec;
+    while (m_running)
+    {
+        clock_gettime(CLOCK_MONOTONIC, &start);
+        while(SDL_PollEvent(&event))
+        {
+            onEvent(&event);
         }
 
-        OnLoop();
-        OnRender();
+        onLoop();
+        onRender();
+        
+        clock_gettime(CLOCK_MONOTONIC, &end);
+        elapsed = double(end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec)/double(1000000000);
+        
+        if (elapsed < double(1/m_targetFps))
+        {
+            waitusec = (double(1/m_targetFps) - elapsed) * 1000000;
+            usleep(waitusec);
+        }
     }
 
-    OnCleanup();
+    onCleanup();
 
     return 0;
 }
 
-void App::OnRender() {
+void App::onRender()
+{
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
     glTranslatef(0.0, 0.0, -10.0);
     
-    level->draw();
+    m_pLevel->draw();
     
     SDL_GL_SwapBuffers();
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[])
+{
     App mainApp;
-
-    return mainApp.OnExecute();
+    return mainApp.onExecute();
 }

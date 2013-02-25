@@ -5,36 +5,36 @@
 
 Block::Block() :
     LevelObject(),
-    type(SOLID),
-    texture_name("")
-{
-
-}
-
-Block::Block(float x_in, float y_in, float w_in, float h_in, BlockType type_in, const char* texture_name_in) :
-    LevelObject(x_in, y_in, w_in, h_in),
-    type(type_in),
-    texture_name(texture_name_in)
+    m_type(SOLID),
+    m_pTextureName("")
 {
 }
 
-Block::~Block() {
+Block::Block(float x, float y, float w, float h, BlockType type, const char* textureName) :
+    LevelObject(x, y, w, h),
+    m_type(type),
+    m_pTextureName(textureName)
+{
 }
 
-void Block::draw() {
-	
-    TextureManager::getInstance()->selectTexture(texture_name);
+Block::~Block()
+{
+}
+
+void Block::draw()
+{
+    TextureManager::getInstance()->selectTexture(m_pTextureName);
     
     glBegin(GL_QUADS);
     /*
-        glColor3f(1, 0, 0); glVertex3f(x, y, 0);
-        glColor3f(1, 1, 0); glVertex3f(x+w, y, 0);
-        glColor3f(1, 0, 1); glVertex3f(x+w, y+h, 0);
-        glColor3f(1, 1, 1); glVertex3f(x, y+h, 0);
+        glColor3f(1, 0, 0); glVertex3f(m_x,       m_y,       0);
+        glColor3f(1, 1, 0); glVertex3f(m_x + m_w, m_y,       0);
+        glColor3f(1, 0, 1); glVertex3f(m_x + m_w, m_y + m_h, 0);
+        glColor3f(1, 1, 1); glVertex3f(m_x,       m_y + m_h, 0);
     */
-        glTexCoord2f(0, 0); glVertex3f(x, y, 0);
-        glTexCoord2f(1, 0); glVertex3f(x+w, y, 0);
-        glTexCoord2f(1, 1); glVertex3f(x+w, y+h, 0);
-        glTexCoord2f(0, 1); glVertex3f(x, y+h, 0);
+        glTexCoord2f(0, 0); glVertex3f(m_x,       m_y,       0);
+        glTexCoord2f(1, 0); glVertex3f(m_x + m_w, m_y,       0);
+        glTexCoord2f(1, 1); glVertex3f(m_x + m_w, m_y + m_h, 0);
+        glTexCoord2f(0, 1); glVertex3f(m_x,       m_y + m_h, 0);
     glEnd();
 }

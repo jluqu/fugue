@@ -1,7 +1,8 @@
 #ifndef _GLOBALS_H_
 #define _GLOBALS_H_
 
-enum BlockType {
+enum BlockType
+{
     SOLID,
     PLATFORM,
     BACKGROUND

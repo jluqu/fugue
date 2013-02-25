@@ -1,22 +1,20 @@
 #ifndef _LEVELOBJECT_H_
 #define _LEVELOBJECT_H_
 
-#include "TextureManager.h"
-
-class LevelObject {
+class LevelObject
+{
     public:
         LevelObject();
-        LevelObject(float x_in, float y_in, float w_in, float h_in);
+        LevelObject(float x, float y, float w, float h);
 		virtual ~LevelObject();
 		
         virtual void draw();
-        void setPosition(float x_in, float y_in);
-        void setSize(float w_in, float h_in);
+        void setPosition(float x, float y);
+        void setSize(float w, float h);
     
     protected:
-        float x, y;
-        float w, h;
-        //static TextureManager tm = TextureManager::getInstance();
+        float m_x, m_y;
+        float m_w, m_h;
 };
 
 #endif

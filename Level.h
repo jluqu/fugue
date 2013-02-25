@@ -4,14 +4,15 @@
 #include "LevelObject.h"
 #include <vector>
 
-class Level {
+class Level
+{
     public:
         Level();
         ~Level();
         void draw();
 
     private:
-        std::vector<LevelObject*> objList;
+        std::vector<LevelObject*> m_objList;
 };
 
 #endif

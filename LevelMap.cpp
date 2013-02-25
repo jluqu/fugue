@@ -1,13 +1,16 @@
 #include "LevelMap.h"
 
-LevelMap::LevelMap() {
+LevelMap::LevelMap()
+{
 }
 
-bool LevelMap::load(const char* filename) {
+bool LevelMap::load(const char* filename)
+{
     // TODO
     return true;
 }
 
-void LevelMap::draw() {
+void LevelMap::draw()
+{
     // TODO
 }
