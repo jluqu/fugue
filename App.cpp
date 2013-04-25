@@ -5,6 +5,7 @@
 
 #include <unistd.h>
 #include <time.h>
+#include <stdio.h>
 #include "Level.h"
 #include "TextureManager.h"
 
@@ -34,7 +35,7 @@ void App::onEvent(SDL_Event* event)
             break;
             
         case SDL_KEYDOWN:
-            printf("A key was pressed!\n");
+            printf("A key was pressed!\n");	
             switch (event->key.keysym.sym)
             {
                 case SDLK_LEFT:
@@ -136,7 +137,6 @@ int App::onExecute()
 
     SDL_Event event;
 
-    //clock_t start, end, elapsed, remaining;
     timespec start, end;
     double elapsed;
     long waitusec;
