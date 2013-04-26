@@ -10,6 +10,8 @@ class Level
         Level();
         ~Level();
         void draw();
+        
+        bool loadFromXml(const char* filename);
 
     private:
         std::vector<LevelObject*> m_objList;

@@ -12,7 +12,7 @@ class Block : public LevelObject
         Block(float x, float y, float w, float h, BlockType type, const char* textureName);
         
         virtual void draw();
-    
+		BlockType getType();
     
     private:
         BlockType m_type;

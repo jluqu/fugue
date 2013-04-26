@@ -9,3 +9,9 @@ DynamicObject::DynamicObject() :
 DynamicObject::~DynamicObject()
 {
 }
+
+void DynamicObject::setSpeed(float vx, float vy)
+{
+	m_vx = vx;
+	m_vy = vy;
+}

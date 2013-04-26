@@ -38,3 +38,8 @@ void Block::draw()
         glTexCoord2f(0, 1); glVertex3f(m_x,       m_y + m_h, 0);
     glEnd();
 }
+
+BlockType Block::getType()
+{
+	return m_type;
+}

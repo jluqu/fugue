@@ -4,6 +4,8 @@
 #include "Level.h"
 #include "LevelObject.h"
 #include "Block.h"
+#include "LevelXmlParser.h"
+
 
 Level::Level()
 {
@@ -40,4 +42,9 @@ void Level::draw()
     {
         (*it)->draw();
     }
+}
+
+bool Level::loadFromXml(const char* filename)
+{
+	return LevelXmlParser::getInstance()->load(filename);
 }

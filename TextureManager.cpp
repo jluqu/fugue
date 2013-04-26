@@ -31,7 +31,7 @@ TextureManager::~TextureManager()
 
 void TextureManager::cleanUp()
 {
-    printf("Texture manager is cleaning up\n");
+    //printf("Texture manager is cleaning up\n");
     std::vector<GLuint> arr;
     
     const unsigned int s = m_idMap.size();
@@ -45,7 +45,7 @@ void TextureManager::cleanUp()
 
 void TextureManager::testSet(const char* name, GLuint x)
 {
-    printf("Setting %s to %u\n", name, x);
+    //printf("Setting %s to %u\n", name, x);
     m_idMap[name] = x;
 }
 
@@ -55,12 +55,12 @@ GLuint TextureManager::testGet(const char* name)
     try
     {
         x = m_idMap.at(name);
-        printf("Looked up entry at %s, got %u\n", name, x);
+        //printf("Looked up entry at %s, got %u\n", name, x);
     }
     catch (const std::out_of_range& oor)
     {
         x = 0;
-        printf("Lookup for %s failed\n", name);
+        //printf("Lookup for %s failed\n", name);
     }
     return x;
 }
@@ -70,7 +70,7 @@ void TextureManager::addPngTexture(const char *imgFile, const char *name)
     
     if (m_idMap.find(name) != m_idMap.end())
     {
-        printf("warning: %s texture has already been loaded, skipping it\n", name);
+        //printf("warning: %s texture has already been loaded, skipping it\n", name);
         return;
     }
     
@@ -104,16 +104,16 @@ void TextureManager::addPngTexture(const char *imgFile, const char *name)
     SDL_FreeSurface(s);
     
     m_idMap[name] = texture;
-    printf("Set texture %s to %u\n", name, texture);
+    //printf("Set texture %s to %u\n", name, texture);
     
-    try
-    {
-        printf("Trying the lookup: %u\n", m_idMap[name]);
-    }
-    catch (const std::out_of_range& oor)
-    {
-        printf("Nope, even that doesn't work\n");
-    }
+    //try
+    //{
+        ////printf("Trying the lookup: %u\n", m_idMap[name]);
+    //}
+    //catch (const std::out_of_range& oor)
+    //{
+        ////printf("Nope, even that doesn't work\n");
+    //}
 }
 
 GLuint TextureManager::getTexture(const char *name)

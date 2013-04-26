@@ -9,6 +9,7 @@ class DynamicObject : public LevelObject
         DynamicObject();
         virtual ~DynamicObject();
         virtual void draw() = 0;
+        void setSpeed(float vx, float vy);
         
     private:
         float m_vx;
