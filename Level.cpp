@@ -28,7 +28,12 @@ Level::Level()
 
 Level::~Level()
 {
-    while (!m_objList.empty())
+	clear();
+}
+
+void Level::clear()
+{
+	while (!m_objList.empty())
     {
         delete m_objList.back();
         m_objList.pop_back();
@@ -46,5 +51,8 @@ void Level::draw()
 
 bool Level::loadFromXml(const char* filename)
 {
-	return LevelXmlParser::getInstance()->load(filename);
+	// remove anything currently in the level
+	clear();
+	
+	return LevelXmlParser::getInstance()->load(filename, m_objList);
 }

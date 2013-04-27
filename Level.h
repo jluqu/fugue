@@ -10,6 +10,7 @@ class Level
         Level();
         ~Level();
         void draw();
+        void clear();
         
         bool loadFromXml(const char* filename);
 
