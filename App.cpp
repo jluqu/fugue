@@ -116,8 +116,8 @@ bool App::onInit()
     glLoadIdentity();
     glEnable(GL_TEXTURE_2D);
     
-    TextureManager::getInstance()->addPngTexture("test.png", "test");
-    TextureManager::getInstance()->addPngTexture("test2.png", "test2");
+    TextureManager::getInstance()->addPngTexture("test.png", "blue");
+    TextureManager::getInstance()->addPngTexture("test2.png", "red");
     
     m_pLevel = new Level();
 	m_pLevel->loadFromXml("testlevel.xml");
