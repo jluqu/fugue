@@ -2,11 +2,11 @@
 <level name="test">
   <playerstart x='-6' y='1' />
   <map>
-    <block x='-10' y='0'  w='20' h='1'  type='1' />
-    <block x='-10' y='10' w='20' h='1'  type='1' />
-    <block x='-5'  y='4'  w='5'  h='1'  type='1' />
-    <block x='2'   y='7'  w='5'  h='1'  type='1' />
-    <block x='-10' y='10' w='1'  h='10' type='1' />
-    <block x='10'  y='10' w='1'  h='10' type='1' />
+    <block x='-10' y='0'  w='20' h='1'  type='solidBlue' />
+    <block x='-10' y='10' w='20' h='1'  type='solidBlue' />
+    <block x='-5'  y='4'  w='5'  h='1'  type='solidBlue' />
+    <block x='2'   y='7'  w='5'  h='1'  type='solidBlue' />
+    <block x='-10' y='10' w='1'  h='10' type='solidBlue' />
+    <block x='10'  y='10' w='1'  h='10' type='solidBlue' />
   </map>
 </level>
