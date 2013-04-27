@@ -1,6 +1,5 @@
 #include <GL/gl.h>
 #include "Block.h"
-#include "Globals.h"
 #include "TextureManager.h"
 
 Block::Block() :

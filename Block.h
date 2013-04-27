@@ -2,7 +2,13 @@
 #define _BLOCK_H_
 
 #include "LevelObject.h"
-#include "Globals.h"
+
+enum BlockType
+{
+    SOLID,
+    PLATFORM,
+    BACKGROUND
+};
 
 class Block : public LevelObject
 {
@@ -18,6 +24,5 @@ class Block : public LevelObject
         BlockType m_type;
         const char* m_pTextureName;
 };
-
 
 #endif
