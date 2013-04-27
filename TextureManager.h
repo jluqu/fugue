@@ -8,7 +8,6 @@
 class TextureManager
 {
     public:
-		// I'm a singleton!
         static TextureManager* getInstance();
         
         void addPngTexture(const char *imgFile, const char *name);
