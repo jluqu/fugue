@@ -13,15 +13,16 @@ class LevelXmlParser
     public:
         static LevelXmlParser* getInstance();
         
-        bool load(const char* filename, std::vector<LevelObject*> objList);
+        bool load(const char* filename, std::vector<LevelObject*>* objList);
         
     private:
         LevelXmlParser();
         ~LevelXmlParser();
     	static LevelXmlParser* m_pInstance;
     	
-    	void processLevel(xmlNodePtr cur, std::vector<LevelObject*> objList);
-    	void processBlock(xmlNodePtr cur, std::vector<LevelObject*> objList);
+    	void processLevel(xmlNodePtr cur, std::vector<LevelObject*>* objList);
+    	void processMap(xmlNodePtr cur, std::vector<LevelObject*>* objList);
+    	void processBlock(xmlNodePtr cur, std::vector<LevelObject*>* objList);
 };
 
 #endif

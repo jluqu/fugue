@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <vector>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
@@ -27,7 +28,7 @@ LevelXmlParser::~LevelXmlParser()
     delete m_pInstance;
 }
 
-bool LevelXmlParser::load(const char* filename, std::vector<LevelObject*> objList)
+bool LevelXmlParser::load(const char* filename, std::vector<LevelObject*>* objList)
 {
     xmlDocPtr doc = xmlReadFile(filename, NULL, 0);
     if (doc == NULL) {
@@ -39,7 +40,7 @@ bool LevelXmlParser::load(const char* filename, std::vector<LevelObject*> objLis
         printf("Can't find root node in the level file\n");
         return false;
 
-    } else if (xmlStrcmp(root->name, (const xmlChar *)"level")) { 
+    } else if (xmlStrcmp(root->name, (const xmlChar*)"level")) { 
         printf("Root node is called %s, expected 'root'\n", root->name);
         return false;
     }
@@ -49,12 +50,26 @@ bool LevelXmlParser::load(const char* filename, std::vector<LevelObject*> objLis
     return true;
 }
 
-void LevelXmlParser::processLevel(xmlNodePtr cur, std::vector<LevelObject*> objList)
+void LevelXmlParser::processLevel(xmlNodePtr cur, std::vector<LevelObject*>* objList)
 {
     xmlNodePtr child = cur->xmlChildrenNode;
     while (child != NULL)
     {
-        if (!xmlStrcmp(cur->name, (const xmlChar *)"block"))
+        if (!xmlStrcmp(child->name, (const xmlChar*)"map"))
+        {
+            processMap(child, objList);
+        }
+        // TODO: <playerstart x=... y=...>
+        child = child->next;
+    }
+}
+
+void LevelXmlParser::processMap(xmlNodePtr cur, std::vector<LevelObject*>* objList)
+{
+    xmlNodePtr child = cur->xmlChildrenNode;
+    while (child != NULL)
+    {
+        if (!xmlStrcmp(child->name, (const xmlChar*)"block"))
         {
             processBlock(child, objList);
         }
@@ -62,7 +77,71 @@ void LevelXmlParser::processLevel(xmlNodePtr cur, std::vector<LevelObject*> objL
     }
 }
 
-void LevelXmlParser::processBlock(xmlNodePtr cur, std::vector<LevelObject*> objList)
+void LevelXmlParser::processBlock(xmlNodePtr cur, std::vector<LevelObject*>* objList)
 {
-    printf("Found a block\n");
+    xmlChar* xStr = xmlGetProp(cur, (const xmlChar*)"x");
+    xmlChar* yStr = xmlGetProp(cur, (const xmlChar*)"y");
+    xmlChar* wStr = xmlGetProp(cur, (const xmlChar*)"w");
+    xmlChar* hStr = xmlGetProp(cur, (const xmlChar*)"h");
+    xmlChar* typeStr = xmlGetProp(cur, (const xmlChar*)"type");
+    
+    float x, y, w, h;
+    const char* type;
+    
+    if (xStr != NULL)
+    {
+        x = float(atof((const char*)xStr));
+    }
+    else
+    {
+        printf("<block> tag does not specify x value!\n");
+        x = 0;
+    }
+    
+    if (yStr != NULL)
+    {
+        y = float(atof((const char*)yStr));
+    }
+    else
+    {
+        printf("<block> tag does not specify y value!\n");
+        y = 0;
+    }
+    
+    if (wStr != NULL)
+    {
+        w = float(atof((const char*)wStr));
+    }
+    else
+    {
+        w = 1;  // Default block width = 1
+    }
+    
+    if (hStr != NULL)
+    {
+        h = float(atof((const char*)hStr));
+    }
+    else
+    {
+        h = 1;  // Default block height = 1
+    }
+    
+    if (typeStr != NULL)
+    {
+        type = (const char*)typeStr;
+    }
+    else
+    {
+        printf("<block> tag does not specify a type!\n");
+        type = "solidBlue";   // default to a solid blue block
+    }
+    
+    Block* b = ObjectFactory::buildBlock(type, x, y, w, h);
+    objList->push_back(b);
+    
+    xmlFree(xStr);
+    xmlFree(yStr);
+    xmlFree(wStr);
+    xmlFree(hStr);
+    xmlFree(typeStr);
 }
