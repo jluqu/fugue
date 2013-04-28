@@ -54,5 +54,5 @@ bool Level::loadFromXml(const char* filename)
 	// remove anything currently in the level
 	clear();
 	
-	return LevelXmlParser::getInstance()->load(filename, m_objList);
+	return LevelXmlParser::getInstance()->load(filename, &m_objList);
 }
