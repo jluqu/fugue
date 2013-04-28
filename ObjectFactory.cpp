@@ -12,6 +12,7 @@ Block* ObjectFactory::buildBlock(const char* type, float x, float y, float w, fl
 	}
 	if (strcmp(type, "solidRed") == 0)
 	{
-		return new Block(x, y, w, h, SOLID, "blue");
+		return new Block(x, y, w, h, SOLID, "red");
 	}
+	return NULL;
 }
