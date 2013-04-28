@@ -170,7 +170,7 @@ void App::onRender()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-    glTranslatef(0.0, 0.0, -10.0);
+    glTranslatef(0.0, -5.0, -15.0);
     
     m_pLevel->draw();
     
