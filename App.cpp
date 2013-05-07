@@ -118,6 +118,7 @@ bool App::onInit()
     
     TextureManager::getInstance()->addPngTexture("test.png", "blue");
     TextureManager::getInstance()->addPngTexture("test2.png", "red");
+    TextureManager::getInstance()->addPngTexture("character.png", "player");
     
     m_pLevel = new Level();
 	m_pLevel->loadFromXml("testlevel.xml");
