@@ -6,14 +6,13 @@
 class DynamicObject : public LevelObject
 {
     public:
-        DynamicObject();
+        DynamicObject(float x, float y, float w, float h);
         virtual ~DynamicObject();
-        virtual void draw() = 0;
-        void setSpeed(float vx, float vy);
         
-    private:
-        float m_vx;
-        float m_vy;
+        virtual void draw();
+        
+		void setPosition(float x, float y);
+
 };
 
 #endif
