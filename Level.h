@@ -1,8 +1,11 @@
 #ifndef _LEVEL_H_
 #define _LEVEL_H_
 
-#include "LevelObject.h"
+#include <chipmunk.h>
 #include <vector>
+
+#include "LevelObject.h"
+#include "Player.h"
 
 class Level
 {
@@ -13,9 +16,18 @@ class Level
         void clear();
         
         bool loadFromXml(const char* filename);
+        
+        void setGravity(float g_x, float g_y);
+        cpSpace* getSpace();
+
+		void addObject(LevelObject* obj);
+		void setPlayerPosition(float x, float y);
 
     private:
         std::vector<LevelObject*> m_objList;
+        
+		Player* m_pPlayer;
+        cpSpace* m_pSpace;
 };
 
 #endif

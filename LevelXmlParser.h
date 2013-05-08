@@ -4,25 +4,26 @@
 //TODO: which of these do we need?
 #include <libxml/parser.h>
 #include <libxml/tree.h>
-#include <vector>
 
 #include "LevelObject.h"
+#include "Level.h"
 
 class LevelXmlParser
 {
     public:
         static LevelXmlParser* getInstance();
         
-        bool load(const char* filename, std::vector<LevelObject*>* objList);
+        bool load(const char* filename, Level* level);
         
     private:
         LevelXmlParser();
         ~LevelXmlParser();
     	static LevelXmlParser* m_pInstance;
     	
-    	void processLevel(xmlNodePtr cur, std::vector<LevelObject*>* objList);
-    	void processMap(xmlNodePtr cur, std::vector<LevelObject*>* objList);
-    	void processBlock(xmlNodePtr cur, std::vector<LevelObject*>* objList);
+    	void processLevel(xmlNodePtr cur, Level* level);
+    	void processMap(xmlNodePtr cur, Level* level);
+    	void processBlock(xmlNodePtr cur, Level* level);
+    	void processPlayerStart(xmlNodePtr cur, Level* level);
 };
 
 #endif

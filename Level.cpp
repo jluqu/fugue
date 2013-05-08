@@ -1,5 +1,6 @@
 #include <vector>
 #include <GL/gl.h>
+#include <chipmunk.h>
 
 #include "Level.h"
 #include "LevelObject.h"
@@ -9,21 +10,12 @@
 
 Level::Level()
 {
-    int oddEven = 0;
-    for (float x = -5.0; x < 5.0; x += 1.0)
-    {
-        float y = 0.0;
-        float w = 1.0, h = 1.0;
-        const char* tex = "test";
-        if (oddEven == 1)
-        {
-            tex = "test2";
-        }
-        
-        LevelObject* b = new Block(x, y, w, h, SOLID, tex);
-        m_objList.push_back(b);
-        oddEven = (oddEven + 1) % 2;
-    }
+    // Create an empty space.
+    m_pSpace = cpSpaceNew();
+    
+    setGravity(0, -10);
+    
+    m_pPlayer = new Player(0, 0);
 }
 
 Level::~Level()
@@ -40,6 +32,17 @@ void Level::clear()
     }
 }
 
+void Level::setGravity(float g_x, float g_y)
+{
+	cpVect grav = cpv((cpFloat)g_x, (cpFloat)g_y);
+	cpSpaceSetGravity(m_pSpace, grav);
+}
+
+cpSpace* Level::getSpace()
+{
+	return m_pSpace;
+}
+
 void Level::draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -47,6 +50,7 @@ void Level::draw()
     {
         (*it)->draw();
     }
+    m_pPlayer->draw();
 }
 
 bool Level::loadFromXml(const char* filename)
@@ -54,5 +58,15 @@ bool Level::loadFromXml(const char* filename)
 	// remove anything currently in the level
 	clear();
 	
-	return LevelXmlParser::getInstance()->load(filename, &m_objList);
+	return LevelXmlParser::getInstance()->load(filename, this);
+}
+
+void Level::addObject(LevelObject* obj)
+{
+	m_objList.push_back(obj);
+}
+
+void Level::setPlayerPosition(float x, float y)
+{
+	m_pPlayer->setPosition(x, y);
 }

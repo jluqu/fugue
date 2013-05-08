@@ -5,9 +5,10 @@
 
 class Player : public DynamicObject
 {
-    Player();
-    virtual ~Player();
-    virtual void draw();
+	public:
+		Player(float x, float y);
+		virtual ~Player();
+		virtual void draw();
 };
 
 #endif

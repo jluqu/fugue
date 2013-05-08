@@ -7,6 +7,7 @@
 #include "LevelXmlParser.h"
 #include "ObjectFactory.h"
 #include "LevelObject.h"
+#include "Player.h"
 
 LevelXmlParser* LevelXmlParser::m_pInstance = NULL;
 
@@ -28,7 +29,7 @@ LevelXmlParser::~LevelXmlParser()
     delete m_pInstance;
 }
 
-bool LevelXmlParser::load(const char* filename, std::vector<LevelObject*>* objList)
+bool LevelXmlParser::load(const char* filename, Level* level)
 {
     xmlDocPtr doc = xmlReadFile(filename, NULL, 0);
     if (doc == NULL) {
@@ -44,40 +45,44 @@ bool LevelXmlParser::load(const char* filename, std::vector<LevelObject*>* objLi
         printf("Root node is called %s, expected 'root'\n", root->name);
         return false;
     }
-    processLevel(root, objList);
+    processLevel(root, level);
 
     xmlFreeDoc(doc);
     return true;
 }
 
-void LevelXmlParser::processLevel(xmlNodePtr cur, std::vector<LevelObject*>* objList)
+void LevelXmlParser::processLevel(xmlNodePtr cur, Level* level)
 {
     xmlNodePtr child = cur->xmlChildrenNode;
     while (child != NULL)
     {
         if (!xmlStrcmp(child->name, (const xmlChar*)"map"))
         {
-            processMap(child, objList);
+            processMap(child, level);
         }
-        // TODO: <playerstart x=... y=...>
+        if (!xmlStrcmp(child->name, (const xmlChar*)"playerstart"))
+        {
+            processPlayerStart(child, level);
+        }
+        
         child = child->next;
     }
 }
 
-void LevelXmlParser::processMap(xmlNodePtr cur, std::vector<LevelObject*>* objList)
+void LevelXmlParser::processMap(xmlNodePtr cur, Level* level)
 {
     xmlNodePtr child = cur->xmlChildrenNode;
     while (child != NULL)
     {
         if (!xmlStrcmp(child->name, (const xmlChar*)"block"))
         {
-            processBlock(child, objList);
+            processBlock(child, level);
         }
         child = child->next;
     }
 }
 
-void LevelXmlParser::processBlock(xmlNodePtr cur, std::vector<LevelObject*>* objList)
+void LevelXmlParser::processBlock(xmlNodePtr cur, Level* level)
 {
     xmlChar* xStr = xmlGetProp(cur, (const xmlChar*)"x");
     xmlChar* yStr = xmlGetProp(cur, (const xmlChar*)"y");
@@ -137,11 +142,42 @@ void LevelXmlParser::processBlock(xmlNodePtr cur, std::vector<LevelObject*>* obj
     }
     
     Block* b = ObjectFactory::buildBlock(type, x, y, w, h);
-    objList->push_back(b);
-    
+    level->addObject(b);
+        
     xmlFree(xStr);
     xmlFree(yStr);
     xmlFree(wStr);
     xmlFree(hStr);
     xmlFree(typeStr);
+}
+
+void LevelXmlParser::processPlayerStart(xmlNodePtr cur, Level* level) {
+    xmlChar* xStr = xmlGetProp(cur, (const xmlChar*)"x");
+    xmlChar* yStr = xmlGetProp(cur, (const xmlChar*)"y");
+    
+    float x, y;
+    if (xStr != NULL)
+    {
+        x = float(atof((const char*)xStr));
+    }
+    else
+    {
+        printf("<block> tag does not specify x value!\n");
+        x = 0;
+    }
+    
+    if (yStr != NULL)
+    {
+        y = float(atof((const char*)yStr));
+    }
+    else
+    {
+        printf("<block> tag does not specify y value!\n");
+        y = 0;
+    }
+    printf("Moving player to %.4f, %.4f\n", x, y);
+    level->setPlayerPosition(x, y);
+        
+    xmlFree(xStr);
+    xmlFree(yStr);
 }

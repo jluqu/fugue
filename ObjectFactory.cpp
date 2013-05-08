@@ -8,11 +8,11 @@ Block* ObjectFactory::buildBlock(const char* type, float x, float y, float w, fl
 {
 	if (strcmp(type, "solidBlue") == 0)
 	{
-		return new Block(x, y, w, h, SOLID, "blue");
+		return new Block(x, y, w, h, SOLID, "blue", TILE);
 	}
 	if (strcmp(type, "solidRed") == 0)
 	{
-		return new Block(x, y, w, h, SOLID, "red");
+		return new Block(x, y, w, h, SOLID, "red", TILE);
 	}
 	return NULL;
 }
