@@ -22,6 +22,8 @@ class Level
 
 		void addObject(LevelObject* obj);
 		void setPlayerPosition(float x, float y);
+		
+		void updateActions(bool leftDown, bool rightDown, bool upDown, bool downDown, bool spaceDown);
 
     private:
         std::vector<LevelObject*> m_objList;

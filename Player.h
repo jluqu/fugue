@@ -9,6 +9,10 @@ class Player : public DynamicObject
 		Player(float x, float y, cpSpace* space);
 		virtual ~Player();
 		virtual void draw();
+		
+		float getXVel();
+		float getYVel();
+		void setVelocity(float vx, float vy);
 };
 
 #endif

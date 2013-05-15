@@ -13,7 +13,7 @@ Level::Level()
     // Create an empty space.
     m_pSpace = cpSpaceNew();
     
-    setGravity(0, -15);
+    setGravity(0, -50);
     
     m_pPlayer = new Player(0, 0, m_pSpace);
 }
@@ -73,4 +73,19 @@ void Level::addObject(LevelObject* obj)
 void Level::setPlayerPosition(float x, float y)
 {
     m_pPlayer->setPosition(x, y);
+}
+
+void Level::updateActions(bool leftDown, bool rightDown, bool upDown, bool downDown, bool spaceDown)
+{
+    float vx = m_pPlayer->getXVel();
+    float vy = m_pPlayer->getYVel();
+    if (leftDown && vx > -10.0) {
+        m_pPlayer->setVelocity(vx-1.0, vy);
+    }
+    if (rightDown && vx < 10.0) {
+        m_pPlayer->setVelocity(vx+1.0, vy);
+    }
+    if (spaceDown && vy < 30) {
+        m_pPlayer->setVelocity(vx, 20.0);
+    }
 }

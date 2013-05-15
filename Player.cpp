@@ -12,7 +12,9 @@ Player::Player(float x, float y, cpSpace* space) :
 	m_pBody = cpSpaceAddBody(space, cpBodyNew(m_mass, moment));
 	m_pShape = cpSpaceAddShape(space, cpBoxShapeNew(m_pBody, 1.5, 1.5));
 	setPosition(x, y);
-	cpBodySetVel(m_pBody, cpv(-2, 15));
+	
+	cpShapeSetFriction(m_pShape, 0.7);
+	cpShapeSetElasticity(m_pShape, 0.0);
 }
 
 Player::~Player()
@@ -51,4 +53,21 @@ void Player::draw()
 		
 		
     glEnd();
+}
+
+float Player::getXVel()
+{
+	cpVect v = cpBodyGetVel(m_pBody);
+	return (float)v.x;
+}
+
+float Player::getYVel()
+{
+	cpVect v = cpBodyGetVel(m_pBody);
+	return (float)v.y;
+}
+
+void Player::setVelocity(float vx, float vy)
+{
+	cpBodySetVel(m_pBody, cpv(vx, vy));
 }

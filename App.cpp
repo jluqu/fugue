@@ -14,7 +14,12 @@ App::App() :
     m_running(true),
     m_pSurfDisplay(NULL),
     m_pLevel(NULL),
-    m_targetFps(60)
+    m_targetFps(60),
+    m_leftDown(false),
+    m_rightDown(false),
+    m_upDown(false),
+    m_downDown(false),
+    m_spaceDown(false)
 {
 }
 
@@ -38,13 +43,20 @@ void App::onEvent(SDL_Event* event)
             switch (event->key.keysym.sym)
             {
                 case SDLK_LEFT:
+					m_leftDown = true;
                     break;
                 case SDLK_RIGHT:
+					m_rightDown = true;
                     break;
                 case SDLK_UP:
+					m_upDown = true;
                     break;
                 case SDLK_DOWN:
+					m_downDown = true;
                     break;
+                case SDLK_SPACE:
+					m_spaceDown = true;
+					break;
                 default:
                     break;
             }
@@ -54,13 +66,20 @@ void App::onEvent(SDL_Event* event)
             switch (event->key.keysym.sym)
             {
                 case SDLK_LEFT:
+					m_leftDown = false;
                     break;
                 case SDLK_RIGHT:
+					m_rightDown = false;
                     break;
                 case SDLK_UP:
+					m_upDown = false;
                     break;
                 case SDLK_DOWN:
+					m_downDown = false;
                     break;
+                case SDLK_SPACE:
+					m_spaceDown = false;
+					break;
                 default:
                     break;
             }
@@ -99,7 +118,7 @@ bool App::onInit()
         return false;
     }
 
-    glClearColor(0, 0.1, 0, 0);
+    glClearColor(0, 0, 0, 0);
     glShadeModel(GL_FLAT);
 
     glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
@@ -126,6 +145,7 @@ bool App::onInit()
 
 void App::onLoop()
 {
+	m_pLevel->updateActions(m_leftDown, m_rightDown, m_upDown, m_downDown, m_spaceDown);
 }
 
 int App::onExecute()
@@ -170,7 +190,7 @@ void App::onRender()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-    glTranslatef(0.0, -5.0, -15.0);
+    glTranslatef(0.0, -7.0, -15.0);
     
     m_pLevel->draw();
     
