@@ -1,6 +1,7 @@
 #ifndef _BLOCK_H_
 #define _BLOCK_H_
 
+#include <chipmunk.h>
 #include "StaticObject.h"
 
 enum BlockType
@@ -19,7 +20,7 @@ enum TextureStyle
 class Block : public StaticObject
 {
     public:
-		Block(float x, float y, float w, float h, BlockType type, const char* textureName, TextureStyle textureStyle);
+		Block(float x, float y, float w, float h, cpSpace* space, BlockType type, const char* textureName, TextureStyle textureStyle);
         virtual ~Block();
         
         virtual void draw();

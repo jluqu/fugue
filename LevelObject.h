@@ -6,8 +6,8 @@
 class LevelObject
 {
     public:
-		LevelObject();
-		LevelObject(float x, float y, float w, float h);
+		LevelObject(cpSpace* space);
+		LevelObject(float x, float y, float w, float h, cpSpace* space);
 		virtual ~LevelObject();
         
         virtual void draw();
@@ -17,6 +17,7 @@ class LevelObject
         // pointers are declared here, but are the responsibilty of inherited classes to create and free
         cpBody* m_pBody;
         cpShape* m_pShape;
+        cpSpace* m_pSpace;
         
         float m_x, m_y;
         float m_w, m_h;

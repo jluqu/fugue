@@ -35,7 +35,6 @@ void App::onEvent(SDL_Event* event)
             break;
             
         case SDL_KEYDOWN:
-            printf("A key was pressed!\n");	
             switch (event->key.keysym.sym)
             {
                 case SDLK_LEFT:
@@ -100,7 +99,7 @@ bool App::onInit()
         return false;
     }
 
-    glClearColor(0, 0, 0, 0);
+    glClearColor(0, 0.1, 0, 0);
     glShadeModel(GL_FLAT);
 
     glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);

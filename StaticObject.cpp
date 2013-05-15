@@ -3,35 +3,21 @@
 #include "StaticObject.h"
 #include "LevelObject.h"
 
-StaticObject::StaticObject(float x, float y, float w, float h) :
-	LevelObject(x, y, w, h)
+StaticObject::StaticObject(float x, float y, float w, float h, cpSpace* space) :
+	LevelObject(x, y, w, h, space)
 {
-	m_pBody = cpBodyNewStatic();
-	m_pShape = cpBoxShapeNew(m_pBody, (cpFloat)w, (cpFloat)h);
-	setPosition(x, y);
+	
+	cpVect verts[] = {cpv(0, 0), cpv(0, h), cpv(w, h), cpv(w, 0)};
+	m_pShape = cpPolyShapeNew(cpSpaceGetStaticBody(space), 4, verts, cpv(x, y));
+	cpSpaceAddShape(space, m_pShape);
 }
 
 StaticObject::~StaticObject()
 {
 	cpShapeFree(m_pShape);
-	cpBodyFree(m_pBody);
 }
 
 void StaticObject::draw()
 {
 }
 
-void StaticObject::setPosition(float x, float y)
-{
-	m_x = x;
-	m_y = y;
-	cpBodySetPos(m_pBody, cpv((cpFloat)m_x, (cpFloat)m_y));
-}
-
-void StaticObject::setSize(float w, float h)
-{
-	////cpBoxShapeDestroy(m_pShape);
-	//cpBoxShapeInit(m_pShape, m_pBody, (cpFloat)w, (cpFloat)h);
-	printf("StaticObject::setSize isn't implemented yet! Need to figure out how to do this!\n");
-
-}

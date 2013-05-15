@@ -1,7 +1,8 @@
+#include <chipmunk.h>
 #include "LevelObject.h"
 
-
-LevelObject::LevelObject() :
+LevelObject::LevelObject(cpSpace* space) :
+	m_pSpace(space),
 	m_x(0),
 	m_y(0),
 	m_w(1),
@@ -9,7 +10,8 @@ LevelObject::LevelObject() :
 {
 }
 
-LevelObject::LevelObject(float x, float y, float w, float h) :
+LevelObject::LevelObject(float x, float y, float w, float h, cpSpace* space) :
+	m_pSpace(space),
 	m_x(x),
 	m_y(y),
 	m_w(w),

@@ -6,7 +6,7 @@
 class Player : public DynamicObject
 {
 	public:
-		Player(float x, float y);
+		Player(float x, float y, cpSpace* space);
 		virtual ~Player();
 		virtual void draw();
 };

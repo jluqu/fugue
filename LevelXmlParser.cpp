@@ -141,9 +141,9 @@ void LevelXmlParser::processBlock(xmlNodePtr cur, Level* level)
         type = "solidBlue";   // default to a solid blue block
     }
     
-    Block* b = ObjectFactory::buildBlock(type, x, y, w, h);
+    Block* b = ObjectFactory::buildBlock(type, x, y, w, h, level);
     level->addObject(b);
-        
+    
     xmlFree(xStr);
     xmlFree(yStr);
     xmlFree(wStr);

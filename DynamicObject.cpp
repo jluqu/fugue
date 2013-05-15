@@ -1,18 +1,16 @@
+#include <chipmunk.h>
+
 #include "DynamicObject.h"
 
 
-DynamicObject::DynamicObject(float x, float y, float w, float h) :
-	LevelObject(x, y, w, h)
+DynamicObject::DynamicObject(float x, float y, float w, float h, float mass, cpSpace* space) :
+	LevelObject(x, y, w, h, space),
+	m_mass(mass)
 {
-	m_pBody = cpBodyNewStatic();
-	m_pShape = cpBoxShapeNew(m_pBody, (cpFloat)w, (cpFloat)h);
-	setPosition(x, y);
 }
 
 DynamicObject::~DynamicObject()
 {
-	cpShapeFree(m_pShape);
-	cpBodyFree(m_pBody);
 }
 
 void DynamicObject::draw()
