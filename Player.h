@@ -12,7 +12,13 @@ class Player : public DynamicObject
 		
 		float getXVel();
 		float getYVel();
-		void setVelocity(float vx, float vy);
+		//void setVelocity(float vx, float vy);
+		
+		void run(float dir);
+		void jump(float force);
+		
+	private:
+		bool m_facingRight;
 };
 
 #endif

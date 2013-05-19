@@ -79,13 +79,16 @@ void Level::updateActions(bool leftDown, bool rightDown, bool upDown, bool downD
 {
     float vx = m_pPlayer->getXVel();
     float vy = m_pPlayer->getYVel();
-    if (leftDown && vx > -10.0) {
-        m_pPlayer->setVelocity(vx-1.0, vy);
+    if (leftDown && vx > -20.0) {
+        //m_pPlayer->setVelocity(vx-1.0, vy);
+        m_pPlayer->run(-7.0);
     }
-    if (rightDown && vx < 10.0) {
-        m_pPlayer->setVelocity(vx+1.0, vy);
+    if (rightDown && vx < 20.0) {
+        //m_pPlayer->setVelocity(vx+1.0, vy);
+        m_pPlayer->run(7.0);
     }
     if (spaceDown && vy < 30) {
-        m_pPlayer->setVelocity(vx, 20.0);
+        //m_pPlayer->setVelocity(vx, 20.0);
+        m_pPlayer->jump(20);
     }
 }
