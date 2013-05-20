@@ -32,3 +32,15 @@ void LevelObject::setPosition(float x, float y)
 	m_x = x;
 	m_y = y;
 }
+
+float LevelObject::getX()
+{
+	cpVect p = cpBodyGetPos(m_pBody);
+	return (float)p.x;
+}
+
+float LevelObject::getY()
+{
+	cpVect p = cpBodyGetPos(m_pBody);
+	return (float)p.y;
+}

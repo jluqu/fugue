@@ -32,4 +32,7 @@ class Level
         cpSpace* m_pSpace;
 };
 
+//int static collisionBegin(cpArbiter* arb, cpSpace* space, void* player);
+//void static collisionEnd(cpArbiter* arb, cpSpace* space, void* player);
+
 #endif

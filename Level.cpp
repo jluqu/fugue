@@ -1,7 +1,9 @@
 #include <vector>
 #include <GL/gl.h>
 #include <chipmunk.h>
+#include <stdio.h>
 
+#include "Globals.h"
 #include "Level.h"
 #include "LevelObject.h"
 #include "Block.h"
@@ -16,6 +18,15 @@ Level::Level()
     setGravity(0, -50);
     
     m_pPlayer = new Player(0, 0, m_pSpace);
+    /*
+	cpSpaceAddCollisionHandler(m_pSpace,
+                               PLAYER_TYPE,
+                               BLOCK_TYPE,
+	                           (cpCollisionBeginFunc)collisionBegin,
+	                           NULL,
+	                           (cpCollision
+	                           (cpCollisionSeparateFunc)collisionEnd,
+	                           m_pPlayer);*/
 }
 
 Level::~Level()
@@ -50,6 +61,7 @@ void Level::draw()
 {
     cpSpaceStep(m_pSpace, 1.0/60.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glTranslatef(-(m_pPlayer->getX()), -(m_pPlayer->getY()), 0);
     for (std::vector<LevelObject*>::iterator it = m_objList.begin(); it != m_objList.end(); ++it)
     {
         (*it)->draw();
@@ -79,16 +91,38 @@ void Level::updateActions(bool leftDown, bool rightDown, bool upDown, bool downD
 {
     float vx = m_pPlayer->getXVel();
     float vy = m_pPlayer->getYVel();
-    if (leftDown && vx > -20.0) {
-        //m_pPlayer->setVelocity(vx-1.0, vy);
+    if (leftDown && vx > -15.0) {
         m_pPlayer->run(-7.0);
     }
-    if (rightDown && vx < 20.0) {
-        //m_pPlayer->setVelocity(vx+1.0, vy);
+    if (rightDown && vx < 15.0) {
         m_pPlayer->run(7.0);
     }
-    if (spaceDown && vy < 30) {
-        //m_pPlayer->setVelocity(vx, 20.0);
-        m_pPlayer->jump(20);
+    if (spaceDown && m_pPlayer->isGrounded()) {
+        m_pPlayer->jump(70);
     }
 }
+/*
+int static collisionBegin(cpArbiter* arb, cpSpace* space, void* player)
+{
+    Player* p = (Player*)player;
+    cpVect n = cpArbiterGetNormal(arb, 0);
+    if (n.y < 0)
+    {
+        printf("Player is grounded\n");
+        p->setGrounded(true);
+    }
+    
+	return 1;
+}
+
+void static collisionEnd(cpArbiter* arb, cpSpace* space, void* player)
+{
+    Player* p = (Player*)player;
+//    cpVect n = cpArbiterGetNormal(arb, 0);
+ //   if (n.y < 0)
+  //  {
+        printf("Player is in the air!\n");
+        p->setGrounded(false);
+    //}
+}
+*/

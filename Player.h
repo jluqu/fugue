@@ -10,15 +10,11 @@ class Player : public DynamicObject
 		virtual ~Player();
 		virtual void draw();
 		
-		float getXVel();
-		float getYVel();
-		//void setVelocity(float vx, float vy);
-		
 		void run(float dir);
 		void jump(float force);
 		
-	private:
-		bool m_facingRight;
+		int collisionBegin(cpArbiter* arb, cpSpace* space, void* unused);
+		void collisionEnd(cpArbiter* arb, cpSpace* space, void* unused);
 };
 
 #endif

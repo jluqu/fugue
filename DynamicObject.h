@@ -14,9 +14,18 @@ class DynamicObject : public LevelObject
         
 		void setPosition(float x, float y);
 		
+		float getXVel();
+		float getYVel();
+		
+		void setGrounded(bool grounded);
+		bool isGrounded();
+		
 	protected:
 		float m_mass;
-		
+		bool m_facingRight;
+		bool m_grounded;
 };
+
+static void updateGrounded(cpBody* body, cpArbiter* arb, bool* grounded);
 
 #endif

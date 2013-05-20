@@ -4,6 +4,7 @@
 #include "Block.h"
 #include "TextureManager.h"
 #include "StaticObject.h"
+#include "Globals.h"
 
 Block::Block(float x,
              float y,
@@ -18,7 +19,7 @@ Block::Block(float x,
     m_pTextureName(textureName),
     m_textureStyle(textureStyle)
 {
-    
+    m_pShape->collision_type = BLOCK_TYPE;
 }
 
 Block::~Block()
@@ -42,17 +43,17 @@ void Block::draw()
         
         if (m_textureStyle == STRETCH)
         {
-            glTexCoord2f(0, 1); glVertex3f(m_x, m_y, 0);
-            glTexCoord2f(1, 1); glVertex3f(m_x + m_w, m_y, 0);
+            glTexCoord2f(0, 1); glVertex3f(m_x,       m_y,       0);
+            glTexCoord2f(1, 1); glVertex3f(m_x + m_w, m_y,       0);
             glTexCoord2f(1, 0); glVertex3f(m_x + m_w, m_y + m_h, 0);
-            glTexCoord2f(0, 0); glVertex3f(m_x, m_y + m_h, 0);
+            glTexCoord2f(0, 0); glVertex3f(m_x,       m_y + m_h, 0);
         }
         else if (m_textureStyle == TILE)
         {
-            glTexCoord2f(0,   m_h); glVertex3f(m_x, m_y, 0);
-            glTexCoord2f(m_w, m_h); glVertex3f(m_x + m_w, m_y, 0);
+            glTexCoord2f(0,   m_h); glVertex3f(m_x,       m_y,       0);
+            glTexCoord2f(m_w, m_h); glVertex3f(m_x + m_w, m_y,       0);
             glTexCoord2f(m_w, 0);   glVertex3f(m_x + m_w, m_y + m_h, 0);
-            glTexCoord2f(0,   0);   glVertex3f(m_x, m_y + m_h, 0);
+            glTexCoord2f(0,   0);   glVertex3f(m_x,       m_y + m_h, 0);
         }
     glEnd();
 }
