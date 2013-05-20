@@ -90,7 +90,7 @@ void Level::setPlayerPosition(float x, float y)
 void Level::updateActions(bool leftDown, bool rightDown, bool upDown, bool downDown, bool spaceDown)
 {
     float vx = m_pPlayer->getXVel();
-    float vy = m_pPlayer->getYVel();
+    //float vy = m_pPlayer->getYVel();
     if (leftDown && vx > -15.0) {
         m_pPlayer->run(-7.0);
     }
@@ -98,7 +98,7 @@ void Level::updateActions(bool leftDown, bool rightDown, bool upDown, bool downD
         m_pPlayer->run(7.0);
     }
     if (spaceDown && m_pPlayer->isGrounded()) {
-        m_pPlayer->jump(70);
+        m_pPlayer->jump(120);
     }
 }
 /*

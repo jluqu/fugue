@@ -3,6 +3,14 @@
 #include <stdio.h>
 #include "DynamicObject.h"
 
+static void updateGrounded(cpBody* body, cpArbiter* arb, bool* grounded)
+{
+	cpVect n = cpArbiterGetNormal(arb, 0);
+	if (n.y < 0)
+	{
+		*grounded = true;
+	}
+}
 
 DynamicObject::DynamicObject(float x, float y, float w, float h, float mass, cpSpace* space) :
 	LevelObject(x, y, w, h, space),
@@ -81,18 +89,8 @@ bool DynamicObject::isGrounded()
 {
 	m_grounded = false;
 	cpBodyEachArbiter(m_pBody, (cpBodyArbiterIteratorFunc)updateGrounded, &m_grounded);
+	return m_grounded;
 }
 
-static void updateGrounded(cpBody* body, cpArbiter* arb, bool* grounded)
-{
-	printf("In the callback\n");
-	if (arb)
-	{
-		cpVect n = cpArbiterGetNormal(arb, 0);
-		if (n.y < 0)
-		{
-			*grounded = true;
-		}
-	}
-}
+
 

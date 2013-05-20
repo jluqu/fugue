@@ -26,6 +26,5 @@ class DynamicObject : public LevelObject
 		bool m_grounded;
 };
 
-static void updateGrounded(cpBody* body, cpArbiter* arb, bool* grounded);
 
 #endif

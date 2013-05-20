@@ -15,7 +15,7 @@ Player::Player(float x, float y, cpSpace* space) :
 	m_pShape->collision_type = PLAYER_TYPE;
 	setPosition(x, y);
 	
-	cpShapeSetFriction(m_pShape, 0.7);
+	cpShapeSetFriction(m_pShape, 0.9);
 	cpShapeSetElasticity(m_pShape, 0.0);
 }
 
