@@ -136,6 +136,9 @@ bool App::onInit()
     
     TextureManager::getInstance()->addPngTexture("test.png", "blue");
     TextureManager::getInstance()->addPngTexture("test2.png", "red");
+    TextureManager::getInstance()->addPngTexture("grass.png", "grass");
+    TextureManager::getInstance()->addPngTexture("concrete.png", "concrete");
+    TextureManager::getInstance()->addPngTexture("concrete_beveled.png", "concrete_beveled");
     TextureManager::getInstance()->addPngTexture("character.png", "player");
     
     m_pLevel = new Level();
